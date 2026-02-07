@@ -11,7 +11,7 @@ import java.util.List;
 
 public interface PetRepository extends JpaRepository<Pet, Long> {
 
-    List<Pet> findByFullName(String name);
+    List<Pet> findByFullNameContainingIgnoreCase(String name);
 
     List<Pet> findByGender(Gender gender);
 
@@ -25,7 +25,7 @@ public interface PetRepository extends JpaRepository<Pet, Long> {
 
     List<Pet> findByAddressStreet(String street);
 
-    List<Pet> findByAddressHouseNumber(Integer number);
+    List<Pet> findByAddressNumber(Integer number);
 
     List<Pet> findByAddressCityAndAddressStreet(String city, String street);
 
