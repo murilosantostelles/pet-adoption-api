@@ -12,6 +12,7 @@ import lombok.Setter;
 @NoArgsConstructor
 public class PetUpdateDTO {
     @Size(min = 3, max = 100, message = "O Nome deve ter entre 3 e 100 caracteres")
+    @NotBlank(message = "Nome não pode estar vazio")
     private String fullName;
 
     private AddressDTO address;
