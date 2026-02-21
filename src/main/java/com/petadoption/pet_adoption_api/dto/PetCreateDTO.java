@@ -1,6 +1,4 @@
 package com.petadoption.pet_adoption_api.dto;
-
-import com.petadoption.pet_adoption_api.entity.Address;
 import com.petadoption.pet_adoption_api.enums.Gender;
 import com.petadoption.pet_adoption_api.enums.Type;
 import jakarta.validation.constraints.*;
@@ -8,8 +6,6 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.web.service.annotation.GetExchange;
 
 @Getter
 @Setter
@@ -18,6 +14,7 @@ import org.springframework.web.service.annotation.GetExchange;
 public class PetCreateDTO {
     @NotBlank(message = "Nome é obrigatório")
     @Size(min = 3, max = 100, message = "O Nome deve ter entre 3 e 100 caracteres")
+    @Pattern(regexp = "^[a-zA-ZÀ-ÿ\\s]+$", message = "Nome só pode ter letras")
     private String fullName;
 
     @NotNull(message = "Tipo é obrigatório")
@@ -40,6 +37,6 @@ public class PetCreateDTO {
     private Double weight;
 
     @Size(message = "Raça deve ter no máximo 50 caracteres")
+    @Pattern(regexp = "^[a-zA-ZÀ-ÿ\\s]*$", message = "Raça deve conter apenas letras")
     private String race;
-
 }

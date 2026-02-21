@@ -13,5 +13,5 @@ import lombok.Setter;
 public class AddressDTO {
     private String street;
     private String city;
-    private Integer numero;
+    private Integer number;
 }
