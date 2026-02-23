@@ -5,6 +5,7 @@ import com.petadoption.pet_adoption_api.entity.Pet;
 import com.petadoption.pet_adoption_api.enums.Gender;
 import com.petadoption.pet_adoption_api.enums.Type;
 import com.petadoption.pet_adoption_api.repository.PetRepository;
+import jakarta.transaction.Transactional;
 import org.springframework.stereotype.Service;
 
 import java.awt.event.PaintEvent;
@@ -20,10 +21,12 @@ public class PetService {
         this.petRepository = petRepository;
     }
 
+    @Transactional
     public Pet createPet(Pet pet){
         return petRepository.save(pet);
     }
 
+    @Transactional
     public void deletePet(Long id){
         if(!petRepository.existsById(id)){
             throw new RuntimeException("Pet não encontrado com ID: "+id);
@@ -31,6 +34,7 @@ public class PetService {
         petRepository.deleteById(id);
     }
 
+    @Transactional
     public Pet updatePet(Long id, Pet petData){
         Pet pet = petRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Pet não encontrado com ID: "+id));
