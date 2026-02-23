@@ -9,6 +9,10 @@ import com.petadoption.pet_adoption_api.entity.Pet;
 import com.petadoption.pet_adoption_api.enums.Gender;
 import com.petadoption.pet_adoption_api.enums.Type;
 import com.petadoption.pet_adoption_api.service.PetService;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -17,6 +21,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/pets")
+@Tag(name= "Pets", description = "Gerenciamento de pets para adoção")
 public class PetController {
     private final PetService petService;
 
@@ -25,6 +30,11 @@ public class PetController {
     }
 
     @PostMapping
+    @Operation(summary = "Cadastrar novo pet", description = "Registra um novo pet no sistema para disponibilizar para adoção")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "201", description = "Pet cadastrado com sucesso"),
+            @ApiResponse(responseCode = "400", description = "Erro ao cadastrar Pet. Dados inválidos foram fornecidos")
+    })
     public ResponseEntity<PetResponseDTO> createPet(@Valid @RequestBody PetCreateDTO dto) {
         Pet pet = toEntity(dto);
         Pet savedPet = petService.createPet(pet);
@@ -33,6 +43,8 @@ public class PetController {
     }
 
     @GetMapping
+    @Operation(summary = "Listar todos os pets", description = "Retorna a lista completa de pets cadastrados no sistema")
+    @ApiResponse(responseCode = "200", description = "Lista de pets retornada com sucesso")
     public ResponseEntity<List<PetResponseDTO>> getAllPets() {
         List<Pet> pets = petService.findAllPets();
         List<PetResponseDTO> responseDTO = pets.stream()
@@ -42,6 +54,11 @@ public class PetController {
     }
 
     @GetMapping("/{id}")
+    @Operation(summary = "Buscar pet por ID", description = "Retorna os dados de um pet específico por meio de seu ID")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Pet econtrado"),
+            @ApiResponse(responseCode = "404", description = "Pet não encontrado")
+    })
     public ResponseEntity<PetResponseDTO> getPetById(@PathVariable Long id) {
         Pet pet = petService.findById(id);
         PetResponseDTO responseDTO = toResponseDTO(pet);
@@ -49,6 +66,8 @@ public class PetController {
     }
 
     @GetMapping("/search")
+    @Operation(summary = "Buscar pets por critérios", description = "Filtra os pets com um ou mais critérios de busca")
+    @ApiResponse(responseCode = "200", description = "Busca realizada com sucesso")
     public ResponseEntity<List<PetResponseDTO>> searchPets(@RequestParam(required = false) String fullName,
                                                            @RequestParam(required = false) Type type,
                                                            @RequestParam(required = false) Gender gender,
@@ -82,6 +101,7 @@ public class PetController {
             pets = petService.findByAddressCity(city);
         } else if (gender != null) {
             pets = petService.findByGender(gender);
+
         } else if (street != null) {
             pets = petService.findByAddressStreet(street);
         } else if (number != null) {
@@ -97,6 +117,12 @@ public class PetController {
     }
 
     @PutMapping("/{id}")
+    @Operation(summary = "Atualizar dados do pet", description = "Atualiza informações de um pet existente.")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Pet atualizado com sucesso"),
+            @ApiResponse(responseCode = "404", description = "Pet não encontrado"),
+            @ApiResponse(responseCode = "400", description = "Dados inválidos")
+    })
     public ResponseEntity<PetResponseDTO> updatePet(@PathVariable Long id, @Valid @RequestBody PetUpdateDTO dto){
         Pet petData = toEntityFromUpdate(dto);
         Pet updatedPet = petService.updatePet(id, petData);
@@ -106,6 +132,11 @@ public class PetController {
     }
 
     @DeleteMapping("/{id}")
+    @Operation(summary = "Remover pet", description = "Remove um pet anteriormente cadastrado")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "204", description = "Pet removido com sucesso"),
+            @ApiResponse(responseCode = "404", description = "Pet não encontrado")
+    })
     public ResponseEntity<Void> deletePet(@PathVariable Long id){
         petService.deletePet(id);
         return ResponseEntity.noContent().build();
