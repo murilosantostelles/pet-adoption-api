@@ -108,4 +108,20 @@ public class PetServiceTest {
 
         assertThrows(RuntimeException.class, () -> petService.deletePet(999L));
     }
+
+    @Test
+    @DisplayName("Deve atualizar pet com sucesso")
+    void testUpdatePet(){
+        Pet petData = new Pet();
+        petData.setFullName("Toto Silva");
+        petData.setWeight(8.0);
+
+        when(petRepository.findById(2L)).thenReturn(Optional.of(pet));
+        when(petRepository.save(any(Pet.class))).thenReturn(pet);
+
+        Pet result = petService.updatePet(2L, petData);
+
+        assertNotNull(result);
+        verify(petRepository, times(1)).save(any(Pet.class));
+    }
 }
