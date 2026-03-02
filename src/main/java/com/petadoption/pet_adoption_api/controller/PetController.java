@@ -101,7 +101,8 @@ public class PetController {
             pets = petService.findByAddressCity(city);
         } else if (gender != null) {
             pets = petService.findByGender(gender);
-
+        } else if (type != null) {
+            pets = petService.findByType(type);
         } else if (street != null) {
             pets = petService.findByAddressStreet(street);
         } else if (number != null) {

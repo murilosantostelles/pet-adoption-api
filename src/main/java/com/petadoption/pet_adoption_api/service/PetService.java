@@ -82,6 +82,10 @@ public class PetService {
         return petRepository.findByFullNameContainingIgnoreCase(name);
     }
 
+    public List<Pet> findByType(Type type){
+        return petRepository.findByType(type);
+    }
+
     public List<Pet> findByGender(Gender gender){
         return petRepository.findByGender(gender);
     }

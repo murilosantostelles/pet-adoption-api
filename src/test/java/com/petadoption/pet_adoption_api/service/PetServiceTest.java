@@ -101,7 +101,19 @@ public class PetServiceTest {
         List<Pet> result = petService.findByName("Toto Santos");
 
         assertNotNull(result);
-        assertEquals("Toto Santos", result.get(0).getFullName());
+        assertEquals("Toto Santos", result.getFirst().getFullName());
+    }
+
+    @Test
+    @DisplayName("Deve buscar pet por tipo com sucesso")
+    void testFindByType(){
+        List<Pet> pets = List.of(pet);
+        when(petRepository.findByType(Type.CACHORRO)).thenReturn(pets);
+
+        List<Pet> result = petService.findByType(Type.CACHORRO);
+
+        assertNotNull(result);
+        assertEquals(Type.CACHORRO, result.getFirst().getType());
     }
 
     @Test
@@ -113,8 +125,8 @@ public class PetServiceTest {
         List<Pet> result = petService.findByTypeAndGender(Type.CACHORRO, Gender.MACHO);
 
         assertNotNull(result);
-        assertEquals(Type.CACHORRO, result.get(0).getType());
-        assertEquals(Gender.MACHO, result.get(0).getGender());
+        assertEquals(Type.CACHORRO, result.getFirst().getType());
+        assertEquals(Gender.MACHO, result.getFirst().getGender());
     }
 
     @Test

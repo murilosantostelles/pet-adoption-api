@@ -15,6 +15,8 @@ public interface PetRepository extends JpaRepository<Pet, Long> {
 
     List<Pet> findByGender(Gender gender);
 
+    List<Pet> findByType(Type type);
+
     List<Pet> findByAge(Double age);
 
     List<Pet> findByWeight(Double weight);
