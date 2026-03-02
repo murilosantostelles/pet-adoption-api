@@ -30,7 +30,7 @@ API RESTful desenvolvida para facilitar o cadastro e busca de pets em abrigos de
 - ✅ Busca por múltiplos critérios (nome, tipo, idade, peso, raça, localização)
 - ✅ Atualização de dados (exceto tipo e gênero)
 - ✅ Remoção de registros
-- ✅ Documentação automática via Swagger
+- ✅ Documentação via Swagger
 - ✅ Transações garantidas com `@Transactional`
 
 ## 🏗️ Arquitetura
@@ -127,14 +127,6 @@ spring.datasource.password=admin123
 - Peso (0.5-60kg)
 - Raça
 - Endereço (rua, cidade, número)
-
-## 🤝 Contribuindo
-
-Contribuições são bem-vindas! Sinta-se à vontade para abrir issues e pull requests.
-
-## 📄 Licença
-
-Este projeto está sob a licença MIT.
 
 ---
 
