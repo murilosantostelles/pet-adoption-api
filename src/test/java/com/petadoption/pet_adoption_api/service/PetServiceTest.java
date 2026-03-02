@@ -93,6 +93,31 @@ public class PetServiceTest {
     }
 
     @Test
+    @DisplayName("Deve buscar pet pelo nome com sucesso")
+    void testFindByName(){
+        List<Pet> pets = List.of(pet);
+        when(petRepository.findByFullNameContainingIgnoreCase("Toto Santos")).thenReturn(pets);
+
+        List<Pet> result = petService.findByName("Toto Santos");
+
+        assertNotNull(result);
+        assertEquals("Toto Santos", result.get(0).getFullName());
+    }
+
+    @Test
+    @DisplayName("Deve buscar pet por tipo e gênero com sucesso")
+    void testFIndByTypeAndGender(){
+        List<Pet> pets = List.of(pet);
+        when(petRepository.findByTypeAndGender(Type.CACHORRO, Gender.MACHO)).thenReturn(pets);
+
+        List<Pet> result = petService.findByTypeAndGender(Type.CACHORRO, Gender.MACHO);
+
+        assertNotNull(result);
+        assertEquals(Type.CACHORRO, result.get(0).getType());
+        assertEquals(Gender.MACHO, result.get(0).getGender());
+    }
+
+    @Test
     @DisplayName("Deve deletar pet com sucesso")
     void testDeletePet(){
         when(petRepository.existsById(2L)).thenReturn(true);

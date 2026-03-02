@@ -14,7 +14,10 @@ import lombok.Setter;
 public class PetCreateDTO {
     @NotBlank(message = "Nome é obrigatório")
     @Size(min = 3, max = 100, message = "O Nome deve ter entre 3 e 100 caracteres")
-    @Pattern(regexp = "^[a-zA-ZÀ-ÿ\\s]+$", message = "Nome só pode ter letras")
+    @Pattern(
+            regexp = "^[A-Za-zÀ-ÿ]+\\s+[A-Za-zÀ-ÿ]+(\\s+[A-Za-zÀ-ÿ]+)*$",
+            message = "Nome deve conter nome e sobrenome"
+    )
     private String fullName;
 
     @NotNull(message = "Tipo é obrigatório")
