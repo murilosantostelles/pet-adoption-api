@@ -11,7 +11,12 @@
 
 ## 📖 Sobre
 
-API RESTful desenvolvida para facilitar o cadastro e busca de pets em abrigos de animais. Permite operações completas de CRUD, buscas por múltiplos critérios e validações robustas de dados.
+API RESTful para gestão de adoção de pets, desenvolvida com Spring Boot e PostgreSQL. O sistema permite cadastro completo de animais com validações de dados (nome, tipo, gênero, idade, peso, raça e endereço), além de operações CRUD e buscas avançadas por múltiplos critérios.
+
+A aplicação foi desenvolvida seguindo boas práticas de arquitetura em camadas (Controller, Service e Repository), utilizando DTOs para controle de entrada e saída de dados, separação de responsabilidades e validações robustas com Bean Validation. Implementa testes unitários com JUnit e Mockito, garantindo qualidade e confiabilidade do código.
+
+Recursos adicionais incluem documentação interativa com Swagger/OpenAPI, migrations de banco de dados com Flyway, containerização com Docker Compose, e gerenciamento transacional com Spring Data JPA. A aplicação demonstra domínio de conceitos essenciais de desenvolvimento backend Java.
+
 
 ## 🚀 Tecnologias
 
